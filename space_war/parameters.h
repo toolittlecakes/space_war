@@ -15,9 +15,12 @@ struct Parameters final {
 	Vector2D speed;
 	Vector2D acceleration;
 	size_t player_number;
-	SDL_Texture* texture;
+
+	bool visible;
+	bool collidable;
+
 
 	Parameters() {};
 	Parameters(std::istream &data);
-	~Parameters();
+	~Parameters() {};
 };

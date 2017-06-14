@@ -3,48 +3,45 @@
 #include <SDL.h>
 
 
-#include "collision.h"
-#include "drowing.h"
-#include "update.h"
-#include "input.h"
-#include "vector2d.h"
 #include "parameters.h"
+
 class GameObject {
 private:
-	VisibilityDelegate *_v;
-	UpdateDelegate *_u;
-	CollisionDelegate *_c;
 
 protected:
-	
-	
-public:
 	Parameters parameters;
-	GameObject(VisibilityDelegate *v, UpdateDelegate *u, CollisionDelegate *c)
-		: _v(v), _u(u), _c(c) {}
-
-	void drow(const double interpolation) { _v->drow(interpolation); }
-	void update(const std::vector<GameObject *> &objects) { _u->update(objects); } //аргументы можно занести в конструктор
-	void collide(const std::vector<GameObject *> &objects) { _c->collide(objects); }
+	SDL_Texture *texture;
+public:
+	virtual Parameters get_parameters();
+	GameObject() {};
 	
-	virtual bool setup(Parameters input);
+	virtual void draw(const double interpolation); // draw, if parameters.visible
+	virtual void update(const std::vector<GameObject *> &objects) {};
+	virtual void collide(const std::vector<GameObject *> &objects); // collide, if parameters.collidable
 
-	virtual ~GameObject() = 0;
+	virtual bool setup(Parameters input); //setup parameters and load image
+
+	virtual ~GameObject();
 };
 
 class Player : public GameObject {
 public:
-	Player() : GameObject(new Visibility(), new Controllable(), new Solid()) {}
-	virtual ~Player() override {};
+	Player() {};
+
+	virtual void update(const std::vector<GameObject *> &objects) override;
 };
 
 class Planet : public GameObject {
 public:
-	Planet() : GameObject(new Visibility(), new Gravitational(), new Solid()) {}
-	virtual ~Planet() override {};
+	Planet() {};
+
+	virtual void update(const std::vector<GameObject *> &objects) override;
 };
 
 class Shoot : public GameObject {
-	Shoot() : GameObject(new Visibility(), new Movable(), new Solid()) {}
-	virtual ~Shoot() override {};
+public:
+	Shoot() {};
+
+
+	virtual void update(const std::vector<GameObject *> &objects) override;
 };

@@ -39,14 +39,12 @@ bool Game::update_game()
 bool Game::display_game(const double interpolation)
 {
 	
-	//SDL_RenderClear(OutputSingleton::instance()->ren);
+	SDL_RenderClear(OutputSingleton::instance()->ren);
 	
 	OutputSingleton::instance()->refresh_background();
 
-	std::string filename = "player1.bmp";
-	//SDL_Texture * new_obj = LoadImage(filename);
 	for (auto it : game_objects) {
-		it->drow(interpolation);
+		it->draw(interpolation);
 	}
 	SDL_RenderPresent(OutputSingleton::instance()->ren);
 	return true;
@@ -65,7 +63,6 @@ void Game::setup(std::istream & input_data)
 	
 	if (input_data) {
 		
-
 		std::string filename, type_object;
 		while (!input_data.eof()) {
 			input_data >> filename >> type_object;
@@ -77,10 +74,6 @@ void Game::setup(std::istream & input_data)
 			}
 		}
 		
-		for (auto it : game_objects)
-		{
-			std::cout << it->parameters.name << it->parameters.texture << std::endl;
-		}
 	}
 	//TODO ELSE
 }
@@ -101,7 +94,6 @@ void Game::run()
 			next_game_tick += SKIP_TICKS;
 			loops++;
 		}
-		//std::cout << "iteration" << std::endl;
 		interpolation = static_cast<double>(GetTickCount() + SKIP_TICKS - next_game_tick)
 			/ static_cast<double>(SKIP_TICKS);
 		display_game(interpolation);

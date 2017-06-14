@@ -18,8 +18,8 @@ bool OutputSingleton::refresh_background()
 bool OutputSingleton::setup()
 {
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-		//std::cout << "SDL_Init Error: " << SDL_GetError() << std::endl;
-		//return false;
+		std::cout << "SDL_Init Error: " << SDL_GetError() << std::endl;
+		return false;
 	}
 	atexit(SDL_Quit);
 
