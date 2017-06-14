@@ -3,25 +3,23 @@
 #include <vector>
 #include <map>
 
+#include "vector2d.h"
 
-class InputSingleton final {
+class Input final {
 private:
-	static InputSingleton* _self;
-	static int _refcount;
 	
 	std::vector<SDL_Event> events;
 	std::map<SDL_Keycode, bool> key_state;
 protected:
-	InputSingleton();
-	~InputSingleton();
+	
 public:
-	static InputSingleton* instance();
-	void free_inst();
-
-
+	Input() {};
+	
 	void refresh();
-	double get_axis(size_t number_player, std::string orientation);
+	Vector2D get_axis(const size_t number_player);
 	bool get_exit();
+
+	~Input() {};
 };
 
 

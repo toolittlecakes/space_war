@@ -16,8 +16,9 @@ public:
 	GameObject() {};
 	
 	virtual void draw(const double interpolation); // draw, if parameters.visible
-	virtual void update(const std::vector<GameObject *> &objects) {};
+	virtual void calculate(const std::vector<GameObject *> &objects) {};
 	virtual void collide(const std::vector<GameObject *> &objects); // collide, if parameters.collidable
+	virtual void accelerate(Vector2D & acceleration) {}; // by user input
 
 	virtual bool setup(Parameters input); //setup parameters and load image
 
@@ -28,14 +29,15 @@ class Player : public GameObject {
 public:
 	Player() {};
 
-	virtual void update(const std::vector<GameObject *> &objects) override;
+	virtual void calculate(const std::vector<GameObject *> &objects) override;
+	virtual void accelerate(Vector2D & acceleration) override;
 };
 
 class Planet : public GameObject {
 public:
 	Planet() {};
 
-	virtual void update(const std::vector<GameObject *> &objects) override;
+	virtual void calculate(const std::vector<GameObject *> &objects) override;
 };
 
 class Shoot : public GameObject {
@@ -43,5 +45,5 @@ public:
 	Shoot() {};
 
 
-	virtual void update(const std::vector<GameObject *> &objects) override;
+	virtual void calculate(const std::vector<GameObject *> &objects) override;
 };

@@ -28,10 +28,19 @@ GameObject* Game::create_object(std::string & type_object, std::istream & data)
 	}
 }
 
-bool Game::update_game()
+bool Game::accelerate(Input &input)
 {
 	for (auto it : game_objects) {
-		it->update(game_objects);
+		size_t number_player = it->get_parameters().player_number;
+		it->accelerate(input.get_axis(number_player));
+	}
+	return true;
+}
+
+bool Game::calculate_game()
+{
+	for (auto it : game_objects) {
+		it->calculate(game_objects);
 	}
 	return true;
 }
@@ -89,7 +98,8 @@ void Game::run()
 
 		loops = 0;
 		while (GetTickCount() > next_game_tick && loops < MAX_FRAMESKIP) {
-			update_game();
+			accelerate(input);
+			calculate_game();
 			
 			next_game_tick += SKIP_TICKS;
 			loops++;
@@ -99,8 +109,8 @@ void Game::run()
 		display_game(interpolation);
 
 
-		InputSingleton::instance()->refresh();
-		if (InputSingleton::instance()->get_exit()) {
+		input.refresh();
+		if (input.get_exit()) {
 			break;
 		}
 	}

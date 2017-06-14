@@ -37,14 +37,19 @@ GameObject::~GameObject()
 	SDL_DestroyTexture(texture);
 }
 
-void Player::update(const std::vector<GameObject*>& objects)
+void Player::calculate(const std::vector<GameObject*>& objects)
 {
 }
 
-void Planet::update(const std::vector<GameObject*>& objects)
+void Player::accelerate(Vector2D & acceleration)
+{
+	
+}
+
+void Planet::calculate(const std::vector<GameObject*>& objects)
 {
 }
 
-void Shoot::update(const std::vector<GameObject*>& objects)
+void Shoot::calculate(const std::vector<GameObject*>& objects)
 {
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include <istream>
 #include "game_object.h"
+#include "input.h"
 
 class Game final {
 private:
@@ -15,8 +16,10 @@ private:
 	unsigned long GetTickCount();
 	GameObject* create_object(std::string &, std::istream &);
 
+	Input input;
 
-	bool update_game();
+	bool accelerate(Input &input);
+	bool calculate_game();
 	bool display_game(const double interpolation);
 	bool collide_game();
 public:

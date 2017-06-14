@@ -1,11 +1,8 @@
 #include <iostream>
-#include "input.h" 
+#include "input.h"
+#include "vector2d.h"
 
-InputSingleton* InputSingleton::_self = nullptr;
-int InputSingleton::_refcount = 0;
-
-
-void InputSingleton::refresh() {
+void Input::refresh() {
 	SDL_Event event;
 	events.clear();
 	while (SDL_PollEvent(&event)) {
@@ -22,59 +19,33 @@ void InputSingleton::refresh() {
 	}
 }
 
-bool InputSingleton::get_exit()
+bool Input::get_exit()
 {
 		return key_state[SDLK_ESCAPE];
 }
 
-double InputSingleton::get_axis(size_t number_player, std::string orientation)
+Vector2D Input::get_axis(const size_t number_player)
 {
-	double result = 0.0;
-	SDL_Keycode key1, key2;
-	if (number_player == 0 && orientation == "vertical") {
-		key1 = SDLK_UP;
-		key2 = SDLK_DOWN;
+	Vector2D result(0, 0);
+	SDL_Keycode up, down, left, right;
+	
+
+	if (number_player == 1) {
+		up = SDLK_UP;
+		down = SDLK_DOWN;
+		right = SDLK_RIGHT;
+		left = SDLK_LEFT;
 	}
-	else if (number_player == 0 && orientation == "horizontal") {
-		key1 = SDLK_RIGHT;
-		key2 = SDLK_LEFT;
+	else if (number_player == 2) {
+		up = SDLK_w;
+		down = SDLK_s;
+		right = SDLK_d;
+		left = SDLK_a;
 	}
 
-	if (number_player == 1 && orientation == "vertical") {
-		key1 = SDLK_w;
-		key2 = SDLK_s;
-	}
-	else if (number_player == 1 && orientation == "horizontal") {
-		key1 = SDLK_d;
-		key2 = SDLK_a;
-	}
 
-	result = static_cast<double> (key_state[key1]) - static_cast<double> (key_state[key2]);
-
+	result.x = static_cast<double> (key_state[up]) - static_cast<double> (key_state[down]);
+	result.x = static_cast<double> (key_state[right]) - static_cast<double> (key_state[left]);
 	return result;
 }
 
-InputSingleton* InputSingleton::instance()
-{
-	if (!_self) _self = new InputSingleton();
-	return _self;
-}
-
-void InputSingleton::free_inst()
-{
-	{
-		_refcount--;
-		if (!_refcount) {
-			delete this;
-			_self = nullptr;
-		}
-	}
-}
-
-InputSingleton::InputSingleton()
-{
-}
-
-InputSingleton::~InputSingleton()
-{
-}
