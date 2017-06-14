@@ -1,0 +1,2 @@
+players.txt player
+planets.txt planet
