@@ -1,8 +1,10 @@
 
+#include <iostream>
 #include <fstream>
 #include <ctime>
 #include "game.h"
 #include "output.h"
+#include "input.h"
 
 GameObject* Game::create_object(std::string & type_object, std::istream & data)
 {
@@ -11,7 +13,7 @@ GameObject* Game::create_object(std::string & type_object, std::istream & data)
 	{
 		Player* player = new Player();
 		Parameters p(data);
-		player->setup(p);
+		player->setup(p); 
 		return player;
 	}
 	if (type_object == "planet")
@@ -36,9 +38,13 @@ bool Game::update_game()
 
 bool Game::display_game(const double interpolation)
 {
-	SDL_RenderClear(OutputSingleton::instance()->ren);
+	
+	//SDL_RenderClear(OutputSingleton::instance()->ren);
 	
 	OutputSingleton::instance()->refresh_background();
+
+	std::string filename = "player1.bmp";
+	//SDL_Texture * new_obj = LoadImage(filename);
 	for (auto it : game_objects) {
 		it->drow(interpolation);
 	}
@@ -65,14 +71,16 @@ void Game::setup(std::istream & input_data)
 			input_data >> filename >> type_object;
 			std::ifstream object_data;
 			object_data.open(filename);
-			GameObject * new_object = create_object(type_object, object_data);
-			if (type_object == "player") {
-				players.push_back(static_cast<Player*> (new_object));
+			while (!object_data.eof()) {
+				GameObject * new_object = create_object(type_object, object_data);
+				game_objects.push_back(new_object);
 			}
-			game_objects.push_back(new_object);
 		}
 		
-
+		for (auto it : game_objects)
+		{
+			std::cout << it->parameters.name << it->parameters.texture << std::endl;
+		}
 	}
 	//TODO ELSE
 }
@@ -89,14 +97,20 @@ void Game::run()
 		loops = 0;
 		while (GetTickCount() > next_game_tick && loops < MAX_FRAMESKIP) {
 			update_game();
-
+			
 			next_game_tick += SKIP_TICKS;
 			loops++;
 		}
-
+		//std::cout << "iteration" << std::endl;
 		interpolation = static_cast<double>(GetTickCount() + SKIP_TICKS - next_game_tick)
 			/ static_cast<double>(SKIP_TICKS);
 		display_game(interpolation);
+
+
+		InputSingleton::instance()->refresh();
+		if (InputSingleton::instance()->get_exit()) {
+			break;
+		}
 	}
 }
 

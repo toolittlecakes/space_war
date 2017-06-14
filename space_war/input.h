@@ -18,8 +18,10 @@ public:
 	static InputSingleton* instance();
 	void free_inst();
 
+
 	void refresh();
 	double get_axis(size_t number_player, std::string orientation);
+	bool get_exit();
 };
 
 

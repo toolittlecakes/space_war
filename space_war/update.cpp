@@ -15,6 +15,7 @@ void Movable::update(const std::vector<GameObject*>& objects)
 
 void Controllable::update(const std::vector<GameObject*>&)
 {
+	//object->parameters.coordinates.x
 }
 
 void NotMovable::update(const std::vector<GameObject*>&)

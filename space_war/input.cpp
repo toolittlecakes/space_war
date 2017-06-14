@@ -1,3 +1,4 @@
+#include <iostream>
 #include "input.h" 
 
 InputSingleton* InputSingleton::_self = nullptr;
@@ -19,6 +20,11 @@ void InputSingleton::refresh() {
 			break;
 		}
 	}
+}
+
+bool InputSingleton::get_exit()
+{
+		return key_state[SDLK_ESCAPE];
 }
 
 double InputSingleton::get_axis(size_t number_player, std::string orientation)

@@ -8,7 +8,6 @@ private:
 	const int SKIP_TICKS = 1000 / TICKS_PER_SECOND;
 	const int MAX_FRAMESKIP = 5;
 
-	std::vector<Player*> players;
 	std::vector<GameObject *> game_objects;
 
 	bool game_is_running;

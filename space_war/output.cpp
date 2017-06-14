@@ -23,7 +23,7 @@ bool OutputSingleton::setup()
 	}
 	atexit(SDL_Quit);
 
-	win = SDL_CreateWindow("Space War!", 0, 0, 600, 800, /*SDL_WINDOW_FULLSCREEN ||*/ SDL_WINDOW_SHOWN);
+	win = SDL_CreateWindow("Space War!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1200, 600, /*SDL_WINDOW_FULLSCREEN ||*/ SDL_WINDOW_SHOWN);
 	if (win == nullptr) {
 		std::cout << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
 		return false;
@@ -38,7 +38,6 @@ bool OutputSingleton::setup()
 	std::string file_background = "background.bmp";
 	background = LoadImage(file_background);
 	if (background == nullptr) {
-		std::cout << "ebota";
 		std::cout << "SDL_CreateRenderer Error: " << SDL_GetError() << std::endl;
 		return false;
 	}

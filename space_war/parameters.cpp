@@ -6,15 +6,17 @@
 
 Parameters::Parameters(std::istream & data)
 {
-	data >> this->name >> this->mass >> this->size.x >> this->size.y
-		>> this->coordinates.x >> this->coordinates.y
-		>> this->speed.x >> this->speed.y 
-		>> this->acceleration.x >> this->acceleration.y >> this->player_number;
-	this->texture = LoadImage(this->name + ".bmp"); //TODO delete
-	this->acceleration.x = this->acceleration.y = 0;
+	data >> name >> mass >> size.x >> size.y
+		>> coordinates.x >> coordinates.y
+		>> speed.x >> speed.y 
+		>> acceleration.x >> acceleration.y >> player_number;
+	
+	texture = LoadImage(name + ".bmp"); //TODO delete
+	
+	acceleration.x = acceleration.y = 0;
 }
 
 Parameters::~Parameters()
 {
-	SDL_DestroyTexture(this->texture);
+	SDL_DestroyTexture(texture);
 }
