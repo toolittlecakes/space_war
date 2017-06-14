@@ -149,6 +149,9 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="output.cpp" />
     <ClCompile Include="parameters.cpp" />
+    <ClCompile Include="planet.cpp" />
+    <ClCompile Include="player.cpp" />
+    <ClCompile Include="shoot.cpp" />
     <ClCompile Include="vector2d.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -158,6 +161,9 @@
     <ClInclude Include="load_image.h" />
     <ClInclude Include="output.h" />
     <ClInclude Include="parameters.h" />
+    <ClInclude Include="planet.h" />
+    <ClInclude Include="player.h" />
+    <ClInclude Include="shoot.h" />
     <ClInclude Include="vector2d.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

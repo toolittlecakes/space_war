@@ -23,7 +23,7 @@ bool OutputSingleton::setup()
 	}
 	atexit(SDL_Quit);
 
-	win = SDL_CreateWindow("Space War!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1200, 600, /*SDL_WINDOW_FULLSCREEN ||*/ SDL_WINDOW_SHOWN);
+	win = SDL_CreateWindow("Space War!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, resolution_x, resolution_y, /*SDL_WINDOW_FULLSCREEN ||*/ SDL_WINDOW_SHOWN);
 	if (win == nullptr) {
 		std::cout << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
 		return false;
@@ -49,7 +49,36 @@ bool OutputSingleton::apply_surface(int x, int y, SDL_Texture * tex)
 	pos.x = x;
 	pos.y = y;
 	SDL_QueryTexture(tex, nullptr, nullptr, &pos.w, &pos.h);
+
+
 	SDL_RenderCopy(ren, tex, nullptr, &pos);
+	return true;
+}
+
+bool OutputSingleton::apply_surface(int x, int y, double angle, SDL_Texture * tex)
+{
+	SDL_Rect pos, rotozoom;
+	pos.x = x;
+	pos.y = y;
+	SDL_QueryTexture(tex, nullptr, nullptr, &pos.w, &pos.h);
+
+	SDL_RenderCopyEx(ren, tex, nullptr, &pos, angle * 180 / M_PI, nullptr, SDL_FLIP_NONE);
+	return true;
+}
+
+bool OutputSingleton::apply_surface(int x, int y, double angle, double scale, SDL_Texture * tex)
+{
+	SDL_Rect pos, rotozoom;
+	pos.x = x;
+	pos.y = y;
+	SDL_QueryTexture(tex, nullptr, nullptr, &pos.w, &pos.h);
+
+	pos.x = static_cast<int>(x) - (pos.w * scale - pos.w) / 2;
+	pos.y = static_cast<int>(y) - (pos.h * scale - pos.h) / 2;
+	pos.w = static_cast<int> (pos.w * scale);
+	pos.h = static_cast<int> (pos.h * scale);
+
+	SDL_RenderCopyEx(ren, tex, nullptr, &pos, angle * 180 / M_PI, nullptr, SDL_FLIP_NONE);
 	return true;
 }
 

@@ -44,8 +44,10 @@ Vector2D Input::get_axis(const size_t number_player)
 	}
 
 
-	result.x = static_cast<double> (key_state[up]) - static_cast<double> (key_state[down]);
+	result.y = static_cast<double> (key_state[up]) - static_cast<double> (key_state[down]);
 	result.x = static_cast<double> (key_state[right]) - static_cast<double> (key_state[left]);
+
+	
 	return result;
 }
 

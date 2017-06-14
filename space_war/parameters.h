@@ -14,11 +14,18 @@ struct Parameters final {
 	Vector2D coordinates;
 	Vector2D speed;
 	Vector2D acceleration;
+
+	double angle;
+	double angular_velocity;
+
 	size_t player_number;
 
 	bool visible;
 	bool collidable;
+	bool gravitational;
 
+	bool must_be_deleted;
+	bool make_shoot;
 
 	Parameters() {};
 	Parameters(std::istream &data);

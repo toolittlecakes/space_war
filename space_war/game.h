@@ -14,15 +14,16 @@ private:
 	bool game_is_running;
 
 	unsigned long GetTickCount();
-	GameObject* create_object(std::string &, std::istream &);
+	GameObject* create_object(std::string &, Parameters &);
 
 	Input input;
 
-	bool accelerate(Input &input);
+	void players_actions(std::map<SDL_Keycode, bool> & key_state);
 	bool calculate_game();
 	bool display_game(const double interpolation);
 	bool collide_game();
+	void game_events();
 public:
-	void setup(std::istream& input_data);
+	bool setup(std::istream& input_data);
 	void run();
 };

@@ -9,6 +9,11 @@ public:
 	Vector2D(double _x, double _y) : x(_x), y(_y) {}
 	Vector2D operator+(const Vector2D &vector2) const;
 	Vector2D operator-(const Vector2D &vector2) const;
+	Vector2D operator*(const double & factor) const;
+	
 	Vector2D& operator+=(const Vector2D &vector2);
 	Vector2D& operator-=(const Vector2D &vector2);
+	Vector2D& operator*=(const double & factor);
+
+	double absolute();
 };

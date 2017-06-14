@@ -6,10 +6,12 @@
 
 Parameters::Parameters(std::istream & data)
 {
-	data >> name >> mass >> size.x >> size.y
+	data >> name >> mass
 		>> coordinates.x >> coordinates.y
 		>> speed.x >> speed.y 
-		>> acceleration.x >> acceleration.y >> player_number;
+		>> acceleration.x >> acceleration.y 
+		>> angle >> angular_velocity 
+		>> player_number;
 }
 
 
