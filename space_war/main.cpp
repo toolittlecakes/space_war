@@ -6,6 +6,7 @@
 
 int main(int argc, char *argv[])
 {
+	std::cout << "привет" << std::endl;
 	std::ifstream input_data;
 	input_data.open("setup.txt");
 

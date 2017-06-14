@@ -23,7 +23,7 @@ bool OutputSingleton::setup()
 	}
 	atexit(SDL_Quit);
 
-	win = SDL_CreateWindow("Space War!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, resolution_x, resolution_y, /*SDL_WINDOW_FULLSCREEN ||*/ SDL_WINDOW_SHOWN);
+	win = SDL_CreateWindow("Space War!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, resolution_x, resolution_y, SDL_WINDOW_FULLSCREEN || SDL_WINDOW_SHOWN);
 	if (win == nullptr) {
 		std::cout << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
 		return false;

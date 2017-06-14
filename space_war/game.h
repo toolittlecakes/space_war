@@ -15,7 +15,7 @@ private:
 
 	unsigned long GetTickCount();
 	GameObject* create_object(std::string &, Parameters &);
-
+	
 	Input input;
 
 	void players_actions(std::map<SDL_Keycode, bool> & key_state);

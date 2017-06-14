@@ -77,7 +77,6 @@ bool Game::collide_game()
 		bool was_deleted = false;
 		while (it != game_objects.end()) {
 			if ((*it)->get_parameters().must_be_deleted) {
-				std::cout << (*it)->get_parameters().name << " was deleted" << std::endl;
 				game_objects.erase(it);
 				was_deleted = true;
 				break;
@@ -96,13 +95,9 @@ void Game::game_events()
 {
 	int pos = 0;
 	while (1) {
-		
 		auto it = game_objects.begin() + pos;
-		
 		bool was_created = false;
-		
 		while (it != game_objects.end() - 1) {
-			
 			if ((*it)->get_parameters().make_shoot) {
 				
 				Parameters obj_par = (*it)->get_parameters();
@@ -111,6 +106,7 @@ void Game::game_events()
 				std::string type_object = "shoot";
 				parameters.name = type_object;
 				parameters.angle = obj_par.angle;
+				parameters.mass = 1000;
 				parameters.coordinates.x = obj_par.coordinates.x + obj_par.size.y * sin(obj_par.angle);
 				parameters.coordinates.y = obj_par.coordinates.y - obj_par.size.y * cos(obj_par.angle);
 				parameters.speed.x = obj_par.speed.x + obj_par.size.y * sin(obj_par.angle);

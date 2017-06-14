@@ -9,7 +9,6 @@ SDL_Texture* LoadImage(const std::string &filename)
 {
 	SDL_Surface *loadedImage = nullptr;
 	SDL_Texture *texture = nullptr;
-	std::cout << "string " << filename.c_str() << std::endl;
 	loadedImage = SDL_LoadBMP(filename.c_str());
 
 	if (loadedImage != nullptr) {

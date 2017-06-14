@@ -11,8 +11,8 @@ private:
 	
 	SDL_Texture *background;
 
-	const int resolution_x = 1200;
-	const int resolution_y = 600;
+	const int resolution_x = 1366;
+	const int resolution_y = 768;
 protected:
 	OutputSingleton();
 	~OutputSingleton();

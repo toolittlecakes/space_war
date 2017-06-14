@@ -3,6 +3,9 @@
 #include "game_object.h"
 
 class Shoot : public GameObject {
+private:
+	const double life_distance = 1000;
+	const double speed_factor = 0.2;
 public:
 	Shoot() {};
 

@@ -87,7 +87,7 @@ Vector2D Player::get_axis(const size_t number_player, std::map<SDL_Keycode, bool
 bool Player::get_shoot(const size_t number_player, std::map<SDL_Keycode, bool>& key_state)
 {
 	if (number_player == 1) {
-		return key_state[SDLK_0];
+		return key_state[SDLK_RCTRL];
 	}
 	else if (number_player == 2) {
 		return key_state[SDLK_SPACE];

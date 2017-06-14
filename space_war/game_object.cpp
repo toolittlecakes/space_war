@@ -34,8 +34,6 @@ void GameObject::collide(const std::vector<GameObject*>& objects)
 			double it_mesh_rad = (it->get_parameters().size.x + it->get_parameters().size.y) / 4;
 			double distance = (it->get_parameters().coordinates - parameters.coordinates).absolute();
 			if (distance < my_mesh_rad + it_mesh_rad && it->get_parameters().mass > parameters.mass / 100) {
-				std::cout << distance << "  " << my_mesh_rad << " " << it_mesh_rad;
-
 				parameters.must_be_deleted = true;
 			}
 
