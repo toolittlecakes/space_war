@@ -44,15 +44,14 @@ void Game::players_actions(std::map<SDL_Keycode, bool>& key_state)
 	}
 }
 
-bool Game::calculate_game()
+void Game::calculate_game()
 {
 	for (auto it : game_objects) {
 		it->calculate(game_objects);
 	}
-	return true;
 }
 
-bool Game::display_game(const double interpolation)
+void Game::display_game(const double interpolation)
 {
 
 	SDL_RenderClear(OutputSingleton::instance()->ren);
@@ -63,10 +62,9 @@ bool Game::display_game(const double interpolation)
 		it->draw(interpolation);
 	}
 	SDL_RenderPresent(OutputSingleton::instance()->ren);
-	return true;
 }
 
-bool Game::collide_game()
+void Game::collide_game()
 {
 	for (auto it : game_objects) {
 		it->collide(game_objects);
@@ -88,7 +86,6 @@ bool Game::collide_game()
 		}
 	}
 
-	return true;
 }
 
 void Game::game_events()
@@ -143,14 +140,17 @@ bool Game::setup(std::istream & input_data)
 			}
 			object_data.close();
 		}
+		return true;
 		
 	}
+	else {
+		return false;
+	}
 
-	//TODO ELSE
-	return true;
+	
 }
 
-void Game::run()
+size_t Game::run()
 {
 	time_t next_game_tick = GetTickCount();
 	int loops;
@@ -167,19 +167,30 @@ void Game::run()
 			collide_game();
 			game_events();
 			
+
+			if (input.get_exit()) {
+				return 1;
+			}
+			if (input.get_restart()) {
+				return 2;
+			}
+			
 			next_game_tick += SKIP_TICKS;
 			loops++;
 		}
 		interpolation = static_cast<double>(GetTickCount() + SKIP_TICKS - next_game_tick)
 			/ static_cast<double>(SKIP_TICKS);
-		display_game(interpolation);
-
-
+		display_game(interpolation);		
 		
-		if (input.get_exit()) {
-			break;
-		}
 	}
+}
+
+Game::~Game()
+{
+	for (auto it : game_objects) {
+		delete(it);
+	}
+
 }
 
 unsigned long Game::GetTickCount()

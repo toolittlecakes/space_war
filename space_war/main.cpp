@@ -6,18 +6,27 @@
 
 int main(int argc, char *argv[])
 {
-	std::cout << "привет" << std::endl;
 	std::ifstream input_data;
-	input_data.open("setup.txt");
+	
 
 	OutputSingleton::instance()->setup();
 
-	Game game;
-	game.setup(input_data);
-	input_data.close();
+	size_t exit_code;
+	do {
+		input_data.open("setup.txt");
+		Game game;
+		if (game.setup(input_data)) {
+			exit_code = game.run();
+		}
+		input_data.close();
+	} while (exit_code == 2);
+	
+	
 	
 
-	game.run();
+	
 
+	
+	OutputSingleton::instance()->free_inst();
 	return 0;
 }

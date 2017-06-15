@@ -43,6 +43,11 @@ void Player::calculate(const std::vector<GameObject*>& objects)
 void Player::players_actions(std::map<SDL_Keycode, bool>& key_state)
 {
 	parameters.make_shoot = false;
+
+	if (still_ticks_to_refresh > 0) {
+		still_ticks_to_refresh--;
+	}
+
 	Vector2D acceleration = get_axis(parameters.player_number, key_state);
 
 	parameters.speed.x += acceleration.y * sin(parameters.angle) * engine_power;
@@ -51,8 +56,9 @@ void Player::players_actions(std::map<SDL_Keycode, bool>& key_state)
 	parameters.angular_velocity += acceleration.x * ñontrol_sensitivity;
 
 
-	if (get_shoot(parameters.player_number, key_state)) {
+	if (get_shoot(parameters.player_number, key_state) && still_ticks_to_refresh == 0) {
 		parameters.make_shoot = true;
+		still_ticks_to_refresh = ticks_refresh_gun;
 	}
 }
 

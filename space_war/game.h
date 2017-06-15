@@ -19,11 +19,12 @@ private:
 	Input input;
 
 	void players_actions(std::map<SDL_Keycode, bool> & key_state);
-	bool calculate_game();
-	bool display_game(const double interpolation);
-	bool collide_game();
+	void calculate_game();
+	void display_game(const double interpolation);
+	void collide_game();
 	void game_events();
 public:
 	bool setup(std::istream& input_data);
-	void run();
+	size_t run();
+	~Game();
 };
