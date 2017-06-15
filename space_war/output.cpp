@@ -87,6 +87,7 @@ OutputSingleton * OutputSingleton::instance()
 {
 	if (!_self) _self = new OutputSingleton();
 	return _self;
+
 }
 
 void OutputSingleton::free_inst()

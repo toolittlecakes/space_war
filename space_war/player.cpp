@@ -1,8 +1,29 @@
 
 #include <iostream>
-
+#include "output.h"
 #include "player.h"
 
+
+void Player::draw(const double interpolation)
+{
+	OutputSingleton *out = OutputSingleton::instance();
+
+	
+	double factor_x = out->get_resolution_x() / 2 / fabs(parameters.coordinates.x);
+	double factor_y = out->get_resolution_y() / 2 / fabs(parameters.coordinates.y);
+	
+	double factor = 1;
+	if (factor_x < 1 && factor_x < factor_y) {
+		factor = factor_x * 0.9;
+	}
+	else if (factor_y < 1) {
+		factor = factor_y * 0.9;
+	}
+	int x = static_cast<int>(parameters.coordinates.x * factor + 0.5) + (out->get_resolution_x() - parameters.size.x) / 2;
+	int y = static_cast<int>(parameters.coordinates.y * factor + 0.5) + (out->get_resolution_y() - parameters.size.y) / 2;
+
+	out->apply_surface(x, y, parameters.angle, factor, texture);
+}
 
 void Player::setup(const Parameters input)
 {

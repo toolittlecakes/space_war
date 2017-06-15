@@ -15,5 +15,5 @@ public:
 	Vector2D& operator-=(const Vector2D &vector2);
 	Vector2D& operator*=(const double & factor);
 
-	double absolute();
+	double absolute() const;
 };

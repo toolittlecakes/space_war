@@ -6,8 +6,15 @@
 
 int main(int argc, char *argv[])
 {
-	std::ifstream input_data;
+	std::ifstream help;
+	help.open("help.txt");
+	std::cout << help.rdbuf() << std::endl;
+	system("pause");
+
+
 	
+
+	std::ifstream input_data;
 
 	OutputSingleton::instance()->setup();
 
@@ -21,11 +28,6 @@ int main(int argc, char *argv[])
 		input_data.close();
 	} while (exit_code == 2);
 	
-	
-	
-
-	
-
 	
 	OutputSingleton::instance()->free_inst();
 	return 0;

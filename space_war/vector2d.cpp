@@ -53,7 +53,7 @@ Vector2D & Vector2D::operator*=(const double & factor)
 	return *this;
 }
 
-double Vector2D::absolute()
+double Vector2D::absolute() const
 {
 	return sqrt(x * x + y * y);
 }

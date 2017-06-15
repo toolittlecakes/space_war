@@ -1,0 +1,10 @@
+Hello!
+It is Space War game
+You can manage your spaceship with:
+
+Left, Right, Up, Down - if you are player1;
+w, a, s, d - if you player 2;
+
+And use space and r_ctrl for shoot.
+
+press backspace for reloaded and esc for exit.

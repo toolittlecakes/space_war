@@ -88,40 +88,7 @@ void Game::collide_game()
 
 }
 
-void Game::game_events()
-{
-	int pos = 0;
-	while (1) {
-		auto it = game_objects.begin() + pos;
-		bool was_created = false;
-		while (it != game_objects.end() - 1) {
-			if ((*it)->get_parameters().make_shoot) {
-				
-				Parameters obj_par = (*it)->get_parameters();
-				Parameters parameters;
 
-				std::string type_object = "shoot";
-				parameters.name = type_object;
-				parameters.angle = obj_par.angle;
-				parameters.mass = 1000;
-				parameters.coordinates.x = obj_par.coordinates.x + obj_par.size.y * sin(obj_par.angle);
-				parameters.coordinates.y = obj_par.coordinates.y - obj_par.size.y * cos(obj_par.angle);
-				parameters.speed.x = obj_par.speed.x + obj_par.size.y * sin(obj_par.angle);
-				parameters.speed.y = obj_par.speed.y - obj_par.size.y * cos(obj_par.angle);
-				pos = 1 + it - game_objects.begin();
-				game_objects.push_back(create_object(type_object, parameters));
-				was_created = true;
-				
-				break;
-			}
-			++it;
-		}
-		if (was_created == false) {
-			
-			break;
-		}
-	}
-}
 
 bool Game::setup(std::istream & input_data)
 {
@@ -196,4 +163,40 @@ Game::~Game()
 unsigned long Game::GetTickCount()
 {
 	return clock();
+}
+
+
+void Game::game_events()
+{
+	int pos = 0;
+	while (1) {
+		auto it = game_objects.begin() + pos;
+		bool was_created = false;
+		while (it != game_objects.end() - 1) {
+			if ((*it)->get_parameters().make_shoot) {
+
+				Parameters obj_par = (*it)->get_parameters();
+				Parameters parameters;
+
+				std::string type_object = "shoot";
+				parameters.name = type_object;
+				parameters.angle = obj_par.angle;
+				parameters.mass = 1000;
+				parameters.coordinates.x = obj_par.coordinates.x + obj_par.size.y * sin(obj_par.angle);
+				parameters.coordinates.y = obj_par.coordinates.y - obj_par.size.y * cos(obj_par.angle);
+				parameters.speed.x = obj_par.speed.x + obj_par.size.y * sin(obj_par.angle);
+				parameters.speed.y = obj_par.speed.y - obj_par.size.y * cos(obj_par.angle);
+				pos = 1 + it - game_objects.begin();
+				game_objects.push_back(create_object(type_object, parameters));
+				was_created = true;
+
+				break;
+			}
+			++it;
+		}
+		if (was_created == false) {
+
+			break;
+		}
+	}
 }

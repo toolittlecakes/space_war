@@ -16,7 +16,6 @@ public:
 	Input() {};
 	
 	void refresh();
-	//Vector2D get_axis(const size_t number_player);
 	bool get_exit();
 	bool get_restart();
 	std::map<SDL_Keycode, bool> & get_key_state() { return key_state; }
